@@ -5,21 +5,21 @@
 *				solving the Maximum Subsequence Sum problem. Also known as the
 *				maximum sub-array. The divide and conquer algorithm is adapted
 *				from psuedo-code found in the textbook (Intro to Algorithms, 
-*				Cormen). There is also a quadratic time brute force algorithm.
+*				Cormen). There is also a quadratic time brute force algorithm
+*				as well as a linear time algorithm known as Kadane's algorithm.
 *
 * Modified:		March 24, 2012
 **/
 #include <climits>
 
 /**
-* Quadratic time algorithm. Here the computation is a little
-* more organized. Second thing
+* Quadratic time algorithm.
 **/
 int bruteMaxSum(int A[], int start, int end) {
 	int maximum = 0;
 	int current = 0;
 
-	for (int i = 0; i <= end; i++) {
+	for (int i = start; i <= end; i++) {
 		current = 0;
 		for (int j = i; j <= end; j++) {
 			current += A[j];
@@ -47,9 +47,9 @@ int divideMaxSum(int A[], int start, int end) {
 		return A[start];
 	}
 	else {
-		mid = (start+end)/2;
+		mid = (start + end) / 2;
 		leftSum = divideMaxSum(A, start, mid);
-		rightSum = divideMaxSum(A, mid+1, end);
+		rightSum = divideMaxSum(A, mid + 1, end);
 		crossSum = divideHelper(A, start, mid, end);
 		if (leftSum >= rightSum && leftSum >= crossSum) {
 			return (leftSum < 0 ? 0 : leftSum);
